@@ -54,6 +54,14 @@ public class Lecturedetails extends AppCompatActivity {
         date.setText("Date: " + b.getString("date"));
         venue.setText("Venue: " + b.getString("venue"));
         time.setText("Time: " + b.getString("time"));
+
+        book_lecture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         }
 
 
