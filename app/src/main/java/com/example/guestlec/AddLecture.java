@@ -64,13 +64,11 @@ public class AddLecture extends AppCompatActivity {
                 notemap.put("Time",Time.getText().toString());
                 notemap.put("Dates",Dates.getText().toString());
                 notemap.put("Area",Area.getText().toString());
-
-
-
+                //newLectureref.child(notemap.get("LectureName").toString()).setValue(notemap);
                 Thread makeThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        newLectureref.child(uid).setValue(notemap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        newLectureref.push().setValue(notemap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 

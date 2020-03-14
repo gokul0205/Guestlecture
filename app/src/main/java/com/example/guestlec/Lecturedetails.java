@@ -36,11 +36,7 @@ public class Lecturedetails extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecture);
-        database = FirebaseDatabase.getInstance();
 
-        fAuth=FirebaseAuth.getInstance();
-        lecture_database=database.getReference("Lecture_list");
-        currentFirebaseUser = fAuth.getInstance().getCurrentUser().getUid() ;
 
         book_lecture=findViewById(R.id.book);
         professor = findViewById(R.id.lecturer);

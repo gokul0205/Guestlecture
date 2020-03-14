@@ -53,7 +53,7 @@ googleSignInClient.signOut();
 
                     switch (item.getItemId()) {
                         case R.id.settings:
-                            fragment=new Settings();
+                            fragment=new frag_settings();
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentcontainer,fragment).commit();
                             return true;
                         case R.id.search:
