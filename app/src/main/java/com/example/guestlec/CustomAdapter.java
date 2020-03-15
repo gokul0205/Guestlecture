@@ -51,7 +51,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             @Override
             public void onClick(View view) {
                 // display a toast with person name on item click
-                Toast.makeText(context, personNames.get(index).toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -61,12 +60,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public int getItemCount() {
         return personNames.size();
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder  {
+     class MyViewHolder extends RecyclerView.ViewHolder  {
         // init the item view's
-      public  TextView name;
-       public  ImageView image;
-       public  TextView comments;
-        public MyViewHolder(final View itemView) {
+        TextView name;
+         ImageView image;
+         TextView comments;
+         MyViewHolder(final View itemView) {
             super(itemView);
             // get the reference of item view's
             name = (TextView) itemView.findViewById(R.id.name);
