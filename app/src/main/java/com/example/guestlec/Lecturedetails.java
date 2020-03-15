@@ -1,6 +1,7 @@
 package com.example.guestlec;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -59,6 +60,7 @@ public class Lecturedetails extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i=new Intent(Lecturedetails.this,SeatDetails.class);
+                i.putExtra("LectureName",lecture.getText().toString());
                 startActivity(i);
 
 
@@ -69,9 +71,29 @@ public class Lecturedetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i=new Intent();
-                i.putExtra("Venue",b.getString("venue"));
-                startActivity(i);
+                String place_code=b.getString("venue").toLowerCase();
+                String coordinates="0,0";
+                switch(place_code)
+                {
+                    case "ab1":
+                        coordinates="10.9005357,76.9023769";
+                        break;
+                    case "ab2":
+                        coordinates="10.9039061,76.8987575";
+                        break;
+                    case "ab3":
+                        coordinates="10.9039061,76.8987575";
+                        break;
+                    default:
+
+                        System.out.println("no match");
+                }
+                String param ="google.navigation:q="+coordinates;
+
+                Uri gmmIntentUri = Uri.parse(param);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
             }
         });
 

@@ -41,7 +41,7 @@ public class Search extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.search, container, false);
+        View view = inflater.inflate(R.layout.add_lecture, container, false);
 
 
         LectureName = (EditText)view.findViewById(R.id.lecture_lecture);

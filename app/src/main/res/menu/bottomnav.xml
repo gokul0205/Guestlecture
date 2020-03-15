@@ -6,8 +6,8 @@
         android:title="Settings"></item>
 
     <item android:id="@+id/search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Add Lecture"
         ></item>
 
 
