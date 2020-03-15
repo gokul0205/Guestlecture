@@ -1,5 +1,7 @@
 package com.example.guestlec;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +28,7 @@ public class Selected extends Fragment {
     ListView myListView;
     //FirebaseAuth fAuth;
     private FirebaseDatabase database;
-    ArrayList<String> Lecture_Name = new ArrayList<>();
+    ArrayList<String> lecture_name;
     ArrayAdapter<String> adapter;
     //private String arr[]=new String[500];
     String noteID;
@@ -35,61 +37,55 @@ public class Selected extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.list_display,container,false);
+        lecture_name=new ArrayList<>();
 
-        //fAuth=FirebaseAuth.getInstance();
+        myListView= view.findViewById(R.id.lecture_list);
 
-        myListView=(ListView) view.findViewById(R.id.lecture_list);
 
-        //dref = database.getReference("User_Lectures").child(fAuth.getCurrentUser().getUid());//gives the uid of the current user
-
-        dref = FirebaseDatabase.getInstance().getReference("User_Lectures").child("ABCD");
+        dref = FirebaseDatabase.getInstance().getReference("User_Lectures");
         dref.addValueEventListener(new ValueEventListener() {//used to get the datasnapshot of all the children
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
-                String count = String.valueOf(dataSnapshot.getChildrenCount());
-                int counts = Integer.parseInt(count);//check if zero lectures or not
-                if(counts==0){
-                    Toast.makeText(getActivity(), "Please book a new lecture", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                   // Toast.makeText(getActivity(), "Please dont book a new lecture", Toast.LENGTH_SHORT).show();
-                    Log.d("tagh", "onDataChange: ");
-                    for(int i = 1; i<4; i++)
-                    Lecture_Name.add(String.valueOf(dataSnapshot.child(String.valueOf(i)).getValue()));
-                    myListView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, Lecture_Name));
+if(getContext()!=null){
+                SharedPreferences pref=getContext().getSharedPreferences("emailprefs", Context.MODE_PRIVATE);
+                String email=pref.getString("email","");
+          //    Toast.makeText(getContext(),email,Toast.LENGTH_LONG).show();
 
-                    //Load(dataSnapshot);
+                for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+
+                    if(email.equals(String.valueOf(dataSnapshot1.child("Email").getValue()))){
+                    //    Toast.makeText(getContext(),String.valueOf(dataSnapshot1.child("Email").getValue()),Toast.LENGTH_LONG).show();
+
+                         lecture_name.add(String.valueOf(dataSnapshot1.child("LectureName").getValue()));
+                      //  Toast.makeText(getContext(),String.valueOf(dataSnapshot1.child("LectureName").getValue()),Toast.LENGTH_LONG).show();
+
+
+                    }
+
+                    myListView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, lecture_name));
+
+
+
                 }
-            }
+
+
+            }}
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+
+
     return view;
     }
-    public void Load(final DataSnapshot dataSnapshot){
-        try{
-            int i=1;
-            for (DataSnapshot ds: dataSnapshot.getChildren())
-            {
-                String t = String.valueOf(i);
-                Lecture_Name.add(String.valueOf(ds.child(t).getValue()));
-                Log.d("iol",String.valueOf(ds.child(t).getValue()));
-
-                i++;
-            }
-        }catch (Exception e){
-
-            Toast.makeText(getActivity(), "DataBase Error\nPlease Try Again After Sometime!", Toast.LENGTH_SHORT).show();
-        }
 
 
-        myListView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, Lecture_Name));
 
-    }
+
+
        // return super.onCreateView(inflater, container, savedInstanceState);
     }
 

@@ -28,6 +28,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     TextView signup;
@@ -85,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user= firebaseAuth.getCurrentUser();
                 if(user!=null)
                 {
+                    SharedPreferences uid=getSharedPreferences("uid",MODE_PRIVATE);
+                    SharedPreferences.Editor editor= uid.edit();
+                    editor.putString("uid",user.getUid());
+                    editor.apply();
                     Toast.makeText(MainActivity.this,"Login Successful!",Toast.LENGTH_SHORT).show();
                     Intent i=new Intent(MainActivity.this,Home.class);
                     startActivity(i);
@@ -99,12 +108,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String email_id=email.getText().toString();
+                final String email_id=email.getText().toString();
                 String password=pass.getText().toString();
-                SharedPreferences sharedPref = getSharedPreferences("pref",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("email",email_id);
-                editor.apply();
+
 
                 if(email_id.trim().isEmpty()) {
                     email.setError("Cannot be empty!");
@@ -121,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful())
                             {
+                                SharedPreferences pref=getSharedPreferences("emailprefs",MODE_PRIVATE);
+                                SharedPreferences.Editor editor=pref.edit();
+                                editor.putString("email",email_id);
+                                editor.commit();
                                 Intent i=new Intent(MainActivity.this,Home.class);
                                 startActivity(i);
                             }
