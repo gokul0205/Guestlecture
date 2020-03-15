@@ -107,6 +107,7 @@ public class Lecturedetails extends AppCompatActivity {
 
 
                         dref.push().setValue(notemap);
+                        dialogBuilder.dismiss();
 
 
 
