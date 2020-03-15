@@ -58,6 +58,10 @@ public class Lecturedetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent i=new Intent(Lecturedetails.this,SeatDetails.class);
+                startActivity(i);
+
+
             }
         });
 

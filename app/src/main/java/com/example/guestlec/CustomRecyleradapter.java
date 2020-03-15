@@ -39,14 +39,14 @@ public int listposition;
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-holder.itemView.setTag(lectures.get(position));
-Lectures list=lectures.get(position);
-   holder.professor.setText(list.getProfessor());
+        holder.itemView.setTag(lectures.get(position));
+        Lectures list=lectures.get(position);
+        holder.professor.setText(list.getProfessor());
         holder.date.setText(list.getdate()+" "+list.gettime());
         holder.lecture.setText(list.getLecture());
 
         holder.imageView.setImageResource(R.drawable.guest);
-this.listposition=position;
+        this.listposition=position;
 
     }
 

@@ -3,6 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <AutoCompleteTextView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Search Lecture Name"
+        android:textColor="@color/gray" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lectures"
         android:layout_width="match_parent"
