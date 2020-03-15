@@ -50,7 +50,7 @@ String [] array;
         layoutManager= new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
             ref.addListenerForSingleValueEvent(valueeventlistener);
-       search=view.findViewById(R.id.search);
+        search=view.findViewById(R.id.search);
 
 
         return view;
@@ -61,7 +61,7 @@ String [] array;
 ValueEventListener valueeventlistener= new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-dataSnapshot3=dataSnapshot;
+        dataSnapshot3=dataSnapshot;
         Log.e("size",String.valueOf(dataSnapshot.getChildrenCount())) ;
         int i=0;
         array=new String[Integer.parseInt(String.valueOf(dataSnapshot.getChildrenCount()))];
@@ -77,9 +77,11 @@ dataSnapshot3=dataSnapshot;
 
                 }
 
+
                 adapter=new CustomRecyleradapter(getContext(),lecturesList);
                 recyclerView.setAdapter(adapter);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.select_dialog_item,array  );
+                if(array!=null&& getContext()!=null){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.select_dialog_item,array);
         search.setAdapter(adapter);
         search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,7 +109,7 @@ dataSnapshot3=dataSnapshot;
 
 
             }
-        });
+        });}
 
 
 

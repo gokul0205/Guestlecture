@@ -21,4 +21,3 @@ jobs:
       run: |
           chmod +x gradlew
           ./gradlew build
-#guest

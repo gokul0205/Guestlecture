@@ -1,5 +1,6 @@
 package com.example.guestlec;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +27,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.Map;
+import java.util.Objects;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Profile extends Fragment {
     TextView name,email,id;
@@ -35,7 +41,11 @@ public class Profile extends Fragment {
     GoogleSignInClient mGoogleSignInClient;
     Button book_lecture;
     Intent intent;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    DatabaseReference dref;
 
+    FirebaseAuth firebaseUser;
+    private ProgressDialog progressDialog;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,12 +84,13 @@ public class Profile extends Fragment {
                     .into(photo);
 
         }else{
-            SharedPreferences preferences=this.getActivity().getSharedPreferences("pref",Context.MODE_PRIVATE);
 
-            String personEmail = preferences.getString("email","");
-            String personName = preferences.getString(personEmail,"");
-            name.setText(personName);
-            email.setText(personEmail);
+            SharedPreferences pref=getContext().getSharedPreferences("emailprefs",MODE_PRIVATE);
+            String email_id=pref.getString("email","");
+            email.setText(email_id);
+
+
+
 
         }
         book_lecture.setOnClickListener(new View.OnClickListener() {

@@ -19,13 +19,18 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
     EditText email,pass,user;
     FirebaseAuth firebaseAuth;
     TextView already_signed_up;
     Button SignUp;
-
+   DatabaseReference dref;
 
 
     @Override
@@ -38,8 +43,6 @@ public class RegistrationActivity extends AppCompatActivity {
         SignUp=findViewById(R.id.btnSignUp);
         firebaseAuth= FirebaseAuth.getInstance();
         already_signed_up=findViewById(R.id.tvSignIn);
-        SharedPreferences sharedPref = getSharedPreferences("pref",Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPref.edit();
 
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +64,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful())
                             {
-                                editor.putString(email_id,user.getText().toString());
-                                editor.commit();
+                                Map notemap=new HashMap<>();
+                                dref= FirebaseDatabase.getInstance().getReference().child("Users");
+                                notemap.put("username",user.getText().toString());
+                                notemap.put("email",email.getText().toString());
+                                dref.push().setValue(notemap);
+
                                 startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
                             }
                             else
