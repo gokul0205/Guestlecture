@@ -167,7 +167,12 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
+            SharedPreferences pref=getSharedPreferences("emailprefs",MODE_PRIVATE);
+            SharedPreferences.Editor editor=pref.edit();
+            editor.putString("email",acct.getEmail());
+            editor.commit();
             // Signed in successfully, show authenticated UI.
             Intent intent=new Intent(MainActivity.this,Home.class);
             startActivity(intent);
