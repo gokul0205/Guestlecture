@@ -10,15 +10,19 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     ArrayList personNames;
     ArrayList personImages;
+    ArrayList personcomments;
     Context context;
-    public CustomAdapter(Context context, ArrayList personNames, ArrayList personImages) {
+    public CustomAdapter(Context context, ArrayList personNames, ArrayList personImages,ArrayList personcomments) {
         this.context = context;
         this.personNames = personNames;
         this.personImages = personImages;
+        this.personcomments=personcomments;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,7 +36,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final int index=position;
         holder.name.setText(personNames.get(position).toString());
-       holder.image.setImageResource((Integer)personImages.get(position));
+//       holder.image.setImageResource((Integer)personImages.get(position));
+
+
+        Glide
+                .with(context).load(personImages.get(position))
+                .override(450, 400)
+                .centerCrop()
+                .into(holder.image);
+
+       holder.comments.setText(personcomments.get(position).toString());
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +65,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         // init the item view's
       public  TextView name;
        public  ImageView image;
+       public  TextView comments;
         public MyViewHolder(final View itemView) {
             super(itemView);
             // get the reference of item view's
             name = (TextView) itemView.findViewById(R.id.name);
             image = (ImageView) itemView.findViewById(R.id.image);
+            comments=itemView.findViewById(R.id.comments);
         }
     }
 }

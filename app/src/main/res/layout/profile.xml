@@ -47,6 +47,7 @@
                     android:layout_marginTop="23dp"
                     android:fontFamily="@font/roboto_mono"
                     android:padding="20dp"
+                    android:layout_centerHorizontal="true"
                     android:text="Name"
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
@@ -80,17 +81,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4">
-
-            <Button
-                android:id="@+id/book_lecture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add lecture"
-                android:layout_marginTop="290dp"
-                android:layout_marginLeft="150dp"/>
-
-        </RelativeLayout>
+            android:layout_weight="4"/>
 
 
 

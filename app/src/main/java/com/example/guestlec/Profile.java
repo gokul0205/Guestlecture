@@ -55,7 +55,6 @@ public class Profile extends Fragment {
         book_lecture=view.findViewById(R.id.Addlecture);
         email=view.findViewById(R.id.email);
 
-        book_lecture=view.findViewById((R.id.book_lecture));
         intent = new Intent(getActivity(), AddLecture.class);
 
      //   id=view.findViewById(R.id.username);
@@ -92,13 +91,9 @@ public class Profile extends Fragment {
 
 
 
+
+
         }
-        book_lecture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent);
-            }
-        });
 
 return view;
     }
