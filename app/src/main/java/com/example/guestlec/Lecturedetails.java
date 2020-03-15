@@ -3,24 +3,28 @@ package com.example.guestlec;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Lecturedetails extends AppCompatActivity {
+    ArrayList personNames = new ArrayList<>(Arrays.asList("Person 1", "Person 2", "Person 3", "Person 4","Person 8", "Person 9", "Person 10", "Person 11"));
+    ArrayList personImages = new ArrayList<>(Arrays.asList(R.drawable.person1, R.drawable.person2, R.drawable.person3, R.drawable.person4,R.drawable.person1, R.drawable.person2, R.drawable.person3, R.drawable.person4));
   TextView professor,lecture,date,time,venue;
   Button book_lecture,locate_venue;
   private DatabaseReference lecture_database;
@@ -35,11 +39,50 @@ public class Lecturedetails extends AppCompatActivity {
     String v;
     FirebaseAuth fAuth;
     String currentFirebaseUser;
+    Button add_comment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecture);
 
+        add_comment=findViewById(R.id.add_comment);
+        add_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog dialogBuilder = new AlertDialog.Builder(Lecturedetails.this).create();
+                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+                View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+
+                final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+                Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+                Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+                button2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialogBuilder.dismiss();
+                    }
+                });
+                button1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // DO SOMETHINGS
+                        dialogBuilder.dismiss();
+                    }
+                });
+
+                dialogBuilder.setView(dialogView);
+                dialogBuilder.show();
+
+            }
+        });
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        // set a LinearLayoutManager with default vertical orientation
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        // call the constructor of CustomAdapter to send the reference and data to Adapter
+        CustomAdapter customAdapter = new CustomAdapter(Lecturedetails.this, personNames,personImages);
+        recyclerView.setAdapter(customAdapter); // set the Adapter to RecyclerView
 
         book_lecture=findViewById(R.id.book);
         professor = findViewById(R.id.lecturer);
@@ -98,6 +141,7 @@ public class Lecturedetails extends AppCompatActivity {
         });
 
         }
+
 
 
 }
