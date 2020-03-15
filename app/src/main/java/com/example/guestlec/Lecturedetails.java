@@ -1,5 +1,6 @@
 package com.example.guestlec;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,11 +21,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Lecturedetails extends AppCompatActivity {
   TextView professor,lecture,date,time,venue;
-  Button book_lecture;
+  Button book_lecture,locate_venue;
   private DatabaseReference lecture_database;
   private DatabaseReference user_lecture_database;
   private FirebaseDatabase database;
   String lecture_id;
+  Bundle b;
     String prof;
     String lec;
     String d;
@@ -44,7 +46,8 @@ public class Lecturedetails extends AppCompatActivity {
         venue = findViewById(R.id.Venue);
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
-        Bundle b = getIntent().getExtras();
+        locate_venue=findViewById(R.id.locate_venue);
+        b = getIntent().getExtras();
         professor.setText("Professor: " + b.getString("professor"));
         lecture.setText("Lecture: " + b.getString("topic"));
         date.setText("Date: " + b.getString("date"));
@@ -55,6 +58,16 @@ public class Lecturedetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        locate_venue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i=new Intent();
+                i.putExtra("Venue",b.getString("venue"));
+                startActivity(i);
             }
         });
 
