@@ -56,7 +56,7 @@ ValueEventListener valueeventlistener =new ValueEventListener() {
                         i+=1;
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.select_dialog_item,array);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.select_dialog_item,array  );
             searchtext.setAdapter(adapter);
 
         }
