@@ -74,6 +74,8 @@ public class Lecturedetails extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         // call the constructor of CustomAdapter to send the reference and data to Adapter
         b=getIntent().getExtras();
+
+
         add_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

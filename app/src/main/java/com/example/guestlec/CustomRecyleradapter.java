@@ -20,9 +20,9 @@ import java.util.List;
 public class CustomRecyleradapter extends RecyclerView.Adapter<CustomRecyleradapter.ViewHolder> {
 
 private static RecyclerView.RecyclerListener itemlistener;
-    public Context context;
+     Context context;
     private List<Lectures> lectures;
-public int listposition;
+ int listposition;
     public CustomRecyleradapter(Context context, List string){
         this.context=context;
         this.lectures=string;
@@ -65,11 +65,11 @@ public void listitemclick(){
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public TextView professor;
-        public TextView date;
-        public TextView lecture;
-        public ImageView imageView;
-        public ViewHolder(final View itemView) {
+         TextView professor;
+         TextView date;
+         TextView lecture;
+         ImageView imageView;
+         ViewHolder(final View itemView) {
             super(itemView);
             professor=(TextView)itemView.findViewById(R.id.Professor);
             date=(TextView)itemView.findViewById(R.id.Date);
